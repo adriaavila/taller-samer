@@ -7,68 +7,10 @@ import {
   ShieldCheck,
   Wrench,
 } from "lucide-react";
+import { HoursByTeamChart } from "@/components/dashboard/HoursByTeamChart";
+import { LaborCostChart } from "@/components/dashboard/LaborCostChart";
 
-const summaryCards = [
-  {
-    title: "Horas hoy",
-    value: "6h 30m",
-    detail: "Último registro: 13:30",
-  },
-  {
-    title: "OT activas",
-    value: "4",
-    detail: "2 por cerrar esta semana",
-  },
-  {
-    title: "Pendientes",
-    value: "7",
-    detail: "3 con prioridad alta",
-  },
-  {
-    title: "Personal en turno",
-    value: "12",
-    detail: "2 técnicos en ruta",
-  },
-];
-
-const recentLogs = [
-  {
-    id: "OT-2405",
-    task: "Cambio de filtros hidráulicos",
-    time: "08:00 - 10:30",
-    tech: "María Rojas",
-  },
-  {
-    id: "OT-2398",
-    task: "Inspección de frenos",
-    time: "10:45 - 12:15",
-    tech: "Carlos Soto",
-  },
-  {
-    id: "OT-2410",
-    task: "Prueba de torque",
-    time: "12:30 - 13:30",
-    tech: "Daniela Vega",
-  },
-];
-
-const pendingTasks = [
-  {
-    title: "Actualizar checklist de seguridad",
-    meta: "Hoy · Zona A",
-    status: "Crítico",
-  },
-  {
-    title: "Cierre OT-2389",
-    meta: "Mañana · Taller central",
-    status: "En revisión",
-  },
-  {
-    title: "Planificación de repuestos",
-    meta: "Viernes · Inventario",
-    status: "Programado",
-  },
-];
+// Dashboard ready for real data integration
 
 export default function Home() {
   return (
@@ -95,89 +37,18 @@ export default function Home() {
               Registrar jornada
             </Link>
             <Link
-              href="/pending"
+              href="/work-orders"
               className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50"
             >
               <ClipboardList className="h-4 w-4" />
-              Revisar pendientes
+              Gestión OTs
             </Link>
           </div>
         </section>
 
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {summaryCards.map((card) => (
-            <div
-              key={card.title}
-              className="flex flex-col gap-3 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm"
-            >
-              <p className="text-sm font-medium text-zinc-500">{card.title}</p>
-              <p className="text-3xl font-bold text-zinc-900">{card.value}</p>
-              <p className="text-xs text-zinc-400">{card.detail}</p>
-            </div>
-          ))}
-        </section>
-
-        <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-zinc-900">Últimos registros</h2>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
-              >
-                Ver dashboard
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-            <div className="mt-6 space-y-4">
-              {recentLogs.map((log) => (
-                <div
-                  key={log.id}
-                  className="flex flex-col gap-2 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
-                >
-                  <div>
-                    <p className="text-sm font-semibold text-zinc-900">{log.task}</p>
-                    <p className="text-xs text-zinc-500">
-                      {log.id} · {log.tech}
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-600">
-                    <Clock className="h-3.5 w-3.5" />
-                    {log.time}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-zinc-900">Pendientes críticos</h2>
-              <Link
-                href="/pending"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
-              >
-                Gestionar
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-            <ul className="mt-6 space-y-4">
-              {pendingTasks.map((task) => (
-                <li
-                  key={task.title}
-                  className="flex flex-col gap-2 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-zinc-900">{task.title}</p>
-                    <span className="rounded-full bg-zinc-900/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-zinc-700">
-                      {task.status}
-                    </span>
-                  </div>
-                  <p className="text-xs text-zinc-500">{task.meta}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <section className="grid gap-6 md:grid-cols-2">
+          <HoursByTeamChart />
+          <LaborCostChart />
         </section>
 
         <section className="grid gap-4 lg:grid-cols-3">
@@ -210,7 +81,7 @@ export default function Home() {
               </div>
             </div>
             <Link
-              href="/pending"
+              href="/work-orders"
               className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
             >
               Ver checklist
@@ -228,7 +99,7 @@ export default function Home() {
               </div>
             </div>
             <Link
-              href="/admin"
+              href="/equipment"
               className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
             >
               Administrar recursos

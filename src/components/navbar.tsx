@@ -15,8 +15,8 @@ const navItems = [
     { href: "/", label: "Inicio", icon: Home },
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/log-hours", label: "Registrar", icon: Clock },
-    { href: "/pending", label: "Pendientes", icon: ClipboardList },
-    { href: "/admin", label: "Admin", icon: Settings },
+    { href: "/work-orders", label: "OTs", icon: ClipboardList },
+    { href: "/equipment", label: "Equipos", icon: Settings },
 ];
 
 export function Navbar() {

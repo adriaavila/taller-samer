@@ -1,4 +1,5 @@
-import { Calendar, Clock, ClipboardList, Mic } from "lucide-react";
+import { Calendar, Clock, ClipboardList } from "lucide-react";
+import { DictationTextarea } from "@/components/dictation-textarea";
 
 export default function LogHoursPage() {
   return (
@@ -35,7 +36,7 @@ export default function LogHoursPage() {
               <div className="flex flex-wrap items-center gap-3">
                 <div className="inline-flex items-center gap-2 rounded-2xl bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-800">
                   <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                  5 de febrero, 2026
+                  {new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </div>
                 <button
                   type="button"
@@ -53,13 +54,18 @@ export default function LogHoursPage() {
                   Orden de Trabajo (OT)
                 </label>
                 <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Escribe el código de la OT..."
-                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 rounded-lg bg-zinc-200/50 px-2 py-1 text-[10px] font-bold text-zinc-500 uppercase">
-                    Opcional
+                  <select
+                    className="w-full appearance-none rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Selecciona una OT activa...</option>
+                    {/* OTs will be dynamically populated */}
+                    <option value="none" disabled>No hay OTs activas</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500">
+                    <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                      <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path>
+                    </svg>
                   </div>
                 </div>
                 <p className="px-1 text-xs text-zinc-400">
@@ -92,26 +98,15 @@ export default function LogHoursPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                  <Mic className="h-4 w-4 text-zinc-400" />
+            <DictationTextarea
+              label={
+                <>
                   Trabajo Ejecutado <span className="text-red-500">*</span>
-                </label>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-zinc-800 active:scale-95 shadow-lg shadow-zinc-200"
-                >
-                  <Mic className="h-3 w-3" />
-                  Dictar
-                </button>
-              </div>
-              <textarea
-                rows={4}
-                placeholder="Describe las tareas realizadas durante este periodo..."
-                className="w-full resize-none rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-              />
-            </div>
+                </>
+              }
+              rows={4}
+              placeholder="Describe las tareas realizadas durante este periodo..."
+            />
 
             <div className="mt-4 flex flex-col gap-4 border-t border-zinc-100 pt-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-xs font-medium text-zinc-400">

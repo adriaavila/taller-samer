@@ -1,0 +1,64 @@
+"use client";
+
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+
+// Data will be fetched from API
+const data: any[] = [];
+
+export function HoursByTeamChart() {
+    return (
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="mb-4">
+                <h3 className="text-lg font-semibold text-zinc-900">Horas trabajadas por equipo</h3>
+                <p className="text-xs text-zinc-500">Total de horas registradas esta semana</p>
+            </div>
+            <div className="h-[240px] w-full">
+                {data.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={data}>
+                            <XAxis
+                                dataKey="name"
+                                stroke="#888888"
+                                fontSize={12}
+                                tickLine={false}
+                                axisLine={false}
+                            />
+                            <YAxis
+                                stroke="#888888"
+                                fontSize={12}
+                                tickLine={false}
+                                axisLine={false}
+                                tickFormatter={(value) => `${value}h`}
+                            />
+                            <Tooltip
+                                cursor={{ fill: '#f4f4f5' }}
+                                content={({ active, payload }) => {
+                                    if (active && payload && payload.length) {
+                                        return (
+                                            <div className="rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
+                                                <span className="text-xs font-semibold text-zinc-900">
+                                                    {payload[0].value} horas
+                                                </span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                }}
+                            />
+                            <Bar
+                                dataKey="hours"
+                                fill="#18181b"
+                                radius={[4, 4, 0, 0]}
+                                className="fill-zinc-900"
+                            />
+                        </BarChart>
+                    </ResponsiveContainer>
+                ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-zinc-400">
+                        No hay registros de horas esta semana
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
