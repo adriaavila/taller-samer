@@ -1,142 +1,239 @@
-import { Calendar, Clock, ClipboardList, Mic } from "lucide-react";
+import Link from "next/link";
+import {
+  ArrowUpRight,
+  CalendarCheck,
+  ClipboardList,
+  Clock,
+  ShieldCheck,
+  Wrench,
+} from "lucide-react";
+
+const summaryCards = [
+  {
+    title: "Horas hoy",
+    value: "6h 30m",
+    detail: "Último registro: 13:30",
+  },
+  {
+    title: "OT activas",
+    value: "4",
+    detail: "2 por cerrar esta semana",
+  },
+  {
+    title: "Pendientes",
+    value: "7",
+    detail: "3 con prioridad alta",
+  },
+  {
+    title: "Personal en turno",
+    value: "12",
+    detail: "2 técnicos en ruta",
+  },
+];
+
+const recentLogs = [
+  {
+    id: "OT-2405",
+    task: "Cambio de filtros hidráulicos",
+    time: "08:00 - 10:30",
+    tech: "María Rojas",
+  },
+  {
+    id: "OT-2398",
+    task: "Inspección de frenos",
+    time: "10:45 - 12:15",
+    tech: "Carlos Soto",
+  },
+  {
+    id: "OT-2410",
+    task: "Prueba de torque",
+    time: "12:30 - 13:30",
+    tech: "Daniela Vega",
+  },
+];
+
+const pendingTasks = [
+  {
+    title: "Actualizar checklist de seguridad",
+    meta: "Hoy · Zona A",
+    status: "Crítico",
+  },
+  {
+    title: "Cierre OT-2389",
+    meta: "Mañana · Taller central",
+    status: "En revisión",
+  },
+  {
+    title: "Planificación de repuestos",
+    meta: "Viernes · Inventario",
+    status: "Programado",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
       <main className="flex flex-col gap-10">
-        <header className="flex flex-col gap-3">
-          <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-200 text-[10px] font-bold text-zinc-700">
-              1
+        <section className="flex flex-col gap-6 rounded-3xl border border-zinc-200 bg-white p-6 shadow-premium sm:p-8">
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500">
+              Panel general
             </span>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
-              Personal
-            </span>
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+              Bienvenido, equipo Taller Samer
+            </h1>
+            <p className="max-w-3xl text-base text-zinc-500 sm:text-lg">
+              Centraliza los registros de jornada, estado de órdenes de trabajo y pendientes críticos para iniciar el día con claridad.
+            </p>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
-            Registro de horas
-          </h1>
-          <p className="max-w-2xl text-lg text-zinc-500">
-            Gestiona tu jornada laboral de forma sencilla. Completa los detalles a continuación para registrar tus actividades.
-          </p>
-        </header>
-
-        <section className="overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-premium">
-          <div className="border-b border-zinc-100 bg-zinc-50/50 px-6 py-4 sm:px-8">
-            <h2 className="text-sm font-semibold text-zinc-900">Detalles de la Jornada</h2>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <Link
+              href="/log-hours"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-zinc-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-zinc-200 transition hover:bg-zinc-800"
+            >
+              <Clock className="h-4 w-4" />
+              Registrar jornada
+            </Link>
+            <Link
+              href="/pending"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50"
+            >
+              <ClipboardList className="h-4 w-4" />
+              Revisar pendientes
+            </Link>
           </div>
+        </section>
 
-          <div className="flex flex-col gap-8 p-6 sm:p-8">
-            {/* Fecha Selector */}
-            <div className="flex flex-col gap-3">
-              <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                <Calendar className="h-4 w-4 text-zinc-400" />
-                Fecha de registro
-              </label>
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-flex items-center gap-2 rounded-2xl bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-800">
-                  <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                  5 de febrero, 2026
-                </div>
-                <button
-                  type="button"
-                  className="rounded-2xl border border-zinc-200 px-4 py-2.5 text-sm font-semibold text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-95"
-                >
-                  Cambiar
-                </button>
-              </div>
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {summaryCards.map((card) => (
+            <div
+              key={card.title}
+              className="flex flex-col gap-3 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm"
+            >
+              <p className="text-sm font-medium text-zinc-500">{card.title}</p>
+              <p className="text-3xl font-bold text-zinc-900">{card.value}</p>
+              <p className="text-xs text-zinc-400">{card.detail}</p>
             </div>
+          ))}
+        </section>
 
-            <div className="grid gap-8 sm:grid-cols-2">
-              {/* Orden de Trabajo */}
-              <div className="flex flex-col gap-3 sm:col-span-2">
-                <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                  <ClipboardList className="h-4 w-4 text-zinc-400" />
-                  Orden de Trabajo (OT)
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Escribe el código de la OT..."
-                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 rounded-lg bg-zinc-200/50 px-2 py-1 text-[10px] font-bold text-zinc-500 uppercase">
-                    Opcional
+        <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-zinc-900">Últimos registros</h2>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
+              >
+                Ver dashboard
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+            <div className="mt-6 space-y-4">
+              {recentLogs.map((log) => (
+                <div
+                  key={log.id}
+                  className="flex flex-col gap-2 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-zinc-900">{log.task}</p>
+                    <p className="text-xs text-zinc-500">
+                      {log.id} · {log.tech}
+                    </p>
                   </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-600">
+                    <Clock className="h-3.5 w-3.5" />
+                    {log.time}
+                  </span>
                 </div>
-                <p className="px-1 text-xs text-zinc-400">
-                  Vincular a una OT activa facilita el seguimiento del mantenimiento.
-                </p>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {/* Horas de Trabajo */}
-              <div className="flex flex-col gap-3">
-                <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                  <Clock className="h-4 w-4 text-zinc-400" />
-                  Hoja de Inicio <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="time"
-                  className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-                  defaultValue="08:00"
-                />
-              </div>
+          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-zinc-900">Pendientes críticos</h2>
+              <Link
+                href="/pending"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
+              >
+                Gestionar
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+            <ul className="mt-6 space-y-4">
+              {pendingTasks.map((task) => (
+                <li
+                  key={task.title}
+                  className="flex flex-col gap-2 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-zinc-900">{task.title}</p>
+                    <span className="rounded-full bg-zinc-900/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-zinc-700">
+                      {task.status}
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-500">{task.meta}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-              <div className="flex flex-col gap-3">
-                <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                  <Clock className="h-4 w-4 text-zinc-400" />
-                  Hora de Término <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="time"
-                  className="w-full rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-                  defaultValue="17:00"
-                />
+        <section className="grid gap-4 lg:grid-cols-3">
+          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white">
+                <CalendarCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-zinc-900">Programación semanal</p>
+                <p className="text-xs text-zinc-500">Revisa turnos y recursos</p>
               </div>
             </div>
-
-            {/* Trabajo Ejecutado */}
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <label className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900">
-                  <Mic className="h-4 w-4 text-zinc-400" />
-                  Trabajo Ejecutado <span className="text-red-500">*</span>
-                </label>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-zinc-800 active:scale-95 shadow-lg shadow-zinc-200"
-                >
-                  <Mic className="h-3 w-3" />
-                  Dictar
-                </button>
+            <Link
+              href="/dashboard"
+              className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
+            >
+              Abrir planificación
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white">
+                <ShieldCheck className="h-5 w-5" />
               </div>
-              <textarea
-                rows={4}
-                placeholder="Describe las tareas realizadas durante este periodo..."
-                className="w-full resize-none rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
-              />
-            </div>
-
-            {/* Actions */}
-            <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-zinc-100 pt-8">
-              <p className="text-xs font-medium text-zinc-400">
-                <span className="text-red-500">*</span> Campos obligatorios para el registro oficial.
-              </p>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="flex-1 rounded-2xl border border-zinc-200 bg-white px-6 py-4 text-sm font-bold text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-95 sm:flex-none"
-                >
-                  Borrador
-                </button>
-                <button
-                  type="button"
-                  className="flex-1 rounded-2xl bg-zinc-900 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-zinc-200 transition hover:bg-zinc-800 hover:shadow-zinc-300 active:scale-95 sm:flex-none"
-                >
-                  Confirmar Registro
-                </button>
+              <div>
+                <p className="text-sm font-semibold text-zinc-900">Control de seguridad</p>
+                <p className="text-xs text-zinc-500">Checklist diario y auditorías</p>
               </div>
             </div>
+            <Link
+              href="/pending"
+              className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
+            >
+              Ver checklist
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white">
+                <Wrench className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-zinc-900">Operación del taller</p>
+                <p className="text-xs text-zinc-500">Estado de bahías y recursos</p>
+              </div>
+            </div>
+            <Link
+              href="/admin"
+              className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-zinc-500 transition hover:text-zinc-900"
+            >
+              Administrar recursos
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </section>
       </main>
