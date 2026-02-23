@@ -15,48 +15,16 @@ import {
 import { cn } from "@/lib/utils";
 
 // Mock Data for Work Orders
-const workOrders = [
-  {
-    id: "OT-2405",
-    title: "Cambio de filtros hidráulicos",
-    equipment: "Excavadora CAT 320",
-    type: "Preventivo",
-    priority: "High",
-    status: "In Progress",
-    assignedTo: "Jesus Valenzuela",
-    date: "2026-02-05",
-  },
-  {
-    id: "OT-2398",
-    title: "Inspección de frenos",
-    equipment: "Camión Minero 793F",
-    type: "Correctivo",
-    priority: "Critical",
-    status: "Pending",
-    assignedTo: "Jesus Valenzuela",
-    date: "2026-02-04",
-  },
-  {
-    id: "OT-2410",
-    title: "Prueba de torque",
-    equipment: "Perforadora PV-271",
-    type: "Preventivo",
-    priority: "Medium",
-    status: "Completed",
-    assignedTo: "Jesus Valenzuela",
-    date: "2026-02-03",
-  },
-  {
-    id: "OT-2412",
-    title: "Revisión sistema eléctrico",
-    equipment: "Cargador Frontal 994K",
-    type: "Correctivo",
-    priority: "Low",
-    status: "Pending",
-    assignedTo: "Pendiente",
-    date: "2026-02-06",
-  },
-];
+const workOrders: Array<{
+  id: string;
+  title: string;
+  equipment: string;
+  type: string;
+  priority: string;
+  status: string;
+  assignedTo: string;
+  date: string;
+}> = [];
 
 const priorityColor: Record<string, string> = {
   Critical: "text-red-700 bg-red-100 border-red-200",
@@ -66,16 +34,16 @@ const priorityColor: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  Pending: "text-zinc-600 bg-zinc-100",
-  "In Progress": "text-blue-700 bg-blue-100 border-blue-200",
-  Completed: "text-green-700 bg-green-100 border-green-200",
+  Pendiente: "text-zinc-600 bg-zinc-100",
+  "En Progreso": "text-blue-700 bg-blue-100 border-blue-200",
+  Completado: "text-green-700 bg-green-100 border-green-200",
 };
 
 export default function WorkOrdersPage() {
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("Todos");
 
   const filteredOrders =
-    filter === "All"
+    filter === "Todos"
       ? workOrders
       : workOrders.filter((ot) => ot.status === filter);
 
@@ -117,7 +85,7 @@ export default function WorkOrdersPage() {
           </div>
           <div className="flex items-center gap-2 p-2">
             <div className="h-8 w-px bg-zinc-200 mx-2 hidden sm:block" />
-            {["All", "Pending", "In Progress", "Completed"].map((status) => (
+            {["Todos", "Pendiente", "En Progreso", "Completado"].map((status) => (
               <button
                 key={status}
                 onClick={() => setFilter(status)}
@@ -128,7 +96,7 @@ export default function WorkOrdersPage() {
                     : "bg-transparent text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
                 )}
               >
-                {status === "All" ? "Todos" : status}
+                {status}
               </button>
             ))}
           </div>
@@ -184,7 +152,7 @@ export default function WorkOrdersPage() {
                     {ot.assignedTo}
                   </span>
                 </div>
-                <span className={cn("text-[10px] font-bold uppercase tracking-wide", ot.status === "In Progress" ? "text-blue-600" : ot.status === "Completed" ? "text-green-600" : "text-zinc-400")}>
+                <span className={cn("text-[10px] font-bold uppercase tracking-wide", ot.status === "En Progreso" ? "text-blue-600" : ot.status === "Completado" ? "text-green-600" : "text-zinc-400")}>
                   {ot.status}
                 </span>
               </div>

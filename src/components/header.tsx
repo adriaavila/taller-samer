@@ -5,13 +5,14 @@ import { User, Bell, Check, Users } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { WORKERS_LIST } from "@/lib/constants";
 
 export function Header() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-    // Mock user/worker state
-    const currentWorker = "Jesus Valenzuela";
-    const availableWorkers = ["Jesus Valenzuela"];
+    // Use actual workers from constants
+    const availableWorkers = WORKERS_LIST.map(w => w.name);
+    const currentWorker = availableWorkers[0] || "Trabajador";
 
     return (
         <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-md">

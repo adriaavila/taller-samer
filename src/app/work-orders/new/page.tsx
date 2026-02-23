@@ -13,7 +13,7 @@ import {
     AlertTriangle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { EQUIPMENT_LIST } from "@/lib/constants";
+import { EQUIPMENT_LIST, WORKERS_LIST } from "@/lib/constants";
 
 export default function NewWorkOrderPage() {
     const router = useRouter();
@@ -155,7 +155,11 @@ export default function NewWorkOrderPage() {
                                     className="w-full appearance-none rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-4 text-base text-zinc-900 transition focus:border-zinc-900 focus:bg-white focus:ring-4 focus:ring-zinc-900/5 outline-none"
                                 >
                                     <option value="" disabled>Selecciona un técnico (opcional)...</option>
-                                    <option value="Jesus Valenzuela">Jesus Valenzuela</option>
+                                    {WORKERS_LIST.map((worker) => (
+                                        <option key={worker.id} value={worker.name}>
+                                            {worker.name}
+                                        </option>
+                                    ))}
                                 </select>
                                 <User className="pointer-events-none absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
                             </div>

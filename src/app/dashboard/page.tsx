@@ -2,26 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight, ChartBar, Clock, Gauge, Users } from "lucide-react";
 
 const kpis = [
-  { title: "Horas registradas", value: "154h", change: "+12%" },
-  { title: "OT finalizadas", value: "28", change: "+4" },
-  { title: "Tasa de cumplimiento", value: "92%", change: "+1.8%" },
-  { title: "Backlog", value: "11", change: "-3" },
+  { title: "Horas registradas", value: "0h", change: "0%" },
+  { title: "OT finalizadas", value: "0", change: "0" },
+  { title: "Tasa de cumplimiento", value: "0%", change: "0%" },
+  { title: "Backlog", value: "0", change: "0" },
 ];
 
-const activity = [
-  {
-    title: "OT-2401 · Ajuste de suspensión",
-    meta: "Equipo Norte · 2h 15m",
-  },
-  {
-    title: "OT-2394 · Diagnóstico eléctrico",
-    meta: "Bahía 3 · 1h 10m",
-  },
-  {
-    title: "OT-2412 · Inspección preventiva",
-    meta: "Zona A · 3 técnicos",
-  },
-];
+const activity: Array<{ title: string; meta: string }> = [];
 
 export default function DashboardPage() {
   return (
@@ -68,18 +55,22 @@ export default function DashboardPage() {
               </Link>
             </div>
             <div className="mt-6 space-y-4">
-              {activity.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex items-start gap-3 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3"
-                >
-                  <Clock className="mt-1 h-4 w-4 text-zinc-400" />
-                  <div>
-                    <p className="text-sm font-semibold text-zinc-900">{item.title}</p>
-                    <p className="text-xs text-zinc-500">{item.meta}</p>
+              {activity.length > 0 ? (
+                activity.map((item) => (
+                  <div
+                    key={item.title}
+                    className="flex items-start gap-3 rounded-2xl border border-zinc-100 bg-zinc-50/70 px-4 py-3"
+                  >
+                    <Clock className="mt-1 h-4 w-4 text-zinc-400" />
+                    <div>
+                      <p className="text-sm font-semibold text-zinc-900">{item.title}</p>
+                      <p className="text-xs text-zinc-500">{item.meta}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div className="text-sm text-zinc-500 text-center py-4">No hay actividad reciente</div>
+              )}
             </div>
           </div>
 
@@ -89,14 +80,14 @@ export default function DashboardPage() {
                 <Gauge className="h-5 w-5 text-zinc-400" />
                 <div>
                   <p className="text-sm font-semibold text-zinc-900">Eficiencia por bahía</p>
-                  <p className="text-xs text-zinc-500">Bahía 2 lidera con 97%</p>
+                  <p className="text-xs text-zinc-500">Sin datos registrados</p>
                 </div>
               </div>
               <div className="mt-4 flex items-center gap-2">
                 <div className="h-2 flex-1 rounded-full bg-zinc-100">
-                  <div className="h-2 w-[85%] rounded-full bg-zinc-900" />
+                  <div className="h-2 w-[0%] rounded-full bg-zinc-900" />
                 </div>
-                <span className="text-xs font-semibold text-zinc-600">85%</span>
+                <span className="text-xs font-semibold text-zinc-600">0%</span>
               </div>
             </div>
 
@@ -105,21 +96,21 @@ export default function DashboardPage() {
                 <Users className="h-5 w-5 text-zinc-400" />
                 <div>
                   <p className="text-sm font-semibold text-zinc-900">Cobertura de turno</p>
-                  <p className="text-xs text-zinc-500">12 técnicos activos</p>
+                  <p className="text-xs text-zinc-500">0 técnicos activos</p>
                 </div>
               </div>
               <div className="mt-4 grid grid-cols-3 gap-2 text-xs text-zinc-500">
                 <div className="rounded-2xl bg-zinc-100 px-3 py-2 text-center">
                   Mañana
-                  <span className="mt-1 block text-sm font-semibold text-zinc-900">6</span>
+                  <span className="mt-1 block text-sm font-semibold text-zinc-900">0</span>
                 </div>
                 <div className="rounded-2xl bg-zinc-100 px-3 py-2 text-center">
                   Tarde
-                  <span className="mt-1 block text-sm font-semibold text-zinc-900">4</span>
+                  <span className="mt-1 block text-sm font-semibold text-zinc-900">0</span>
                 </div>
                 <div className="rounded-2xl bg-zinc-100 px-3 py-2 text-center">
                   Noche
-                  <span className="mt-1 block text-sm font-semibold text-zinc-900">2</span>
+                  <span className="mt-1 block text-sm font-semibold text-zinc-900">0</span>
                 </div>
               </div>
             </div>
