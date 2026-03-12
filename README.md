@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taller Samer
 
-## Getting Started
+Sistema web para gestión operativa de un taller mecánico, con foco en jornadas, órdenes de trabajo, planificación y control interno.
 
-First, run the development server:
+## Qué es este proyecto
+
+Taller Samer plantea una interfaz administrativa para centralizar procesos que normalmente se manejan de forma dispersa dentro de un taller: registro de horas, seguimiento de trabajo, control de recursos y visibilidad operativa.
+
+## El reto
+
+El reto principal fue **transformar la operación de un taller en una experiencia digital clara, rápida y accionable**.
+
+En este tipo de negocio suele haber mucha fricción operativa:
+
+- seguimiento manual de jornadas
+- órdenes de trabajo poco visibles
+- poca trazabilidad de recursos y tiempos
+- dificultad para arrancar el día con una visión clara del estado del taller
+
+## Cómo lo resolví
+
+- Diseñé un dashboard orientado a operación diaria, no solo a visualización.
+- Organicé accesos directos para las tareas clave: registrar jornada, gestionar órdenes y revisar planificación.
+- Incorporé indicadores y gráficos para dar contexto sin saturar la interfaz.
+- Priorizé una estructura limpia para que el producto se sienta usable desde el primer vistazo.
+
+## Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Recharts
+
+## Lo que hace valioso este proyecto
+
+Este proyecto demuestra capacidad para llevar un flujo operativo tradicional a un entorno digital con lógica de producto. No se trata solo de una interfaz bonita: se trata de **ordenar trabajo real**.
+
+## Aprendizajes
+
+- Las herramientas internas deben optimizar decisiones, no solo mostrar datos.
+- En entornos operativos, claridad y velocidad pesan más que complejidad visual.
+- Un buen dashboard nace de entender el día a día del negocio.
+
+## Desarrollo local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Enlace del proyecto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Repositorio: https://github.com/adriaavila/taller-samer
