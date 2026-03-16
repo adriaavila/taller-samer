@@ -12,7 +12,6 @@ import {
     Wrench,
     AlertTriangle,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { EQUIPMENT_LIST, WORKERS_LIST } from "@/lib/constants";
 
 export default function NewWorkOrderPage() {

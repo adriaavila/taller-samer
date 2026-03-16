@@ -1,7 +1,49 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Mic, MicOff, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Loader2, Mic } from "lucide-react";
+
+interface SpeechRecognitionAlternative {
+    transcript: string;
+}
+
+interface SpeechRecognitionResult {
+    isFinal: boolean;
+    0: SpeechRecognitionAlternative;
+}
+
+interface SpeechRecognitionResultList {
+    length: number;
+    [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionEvent {
+    resultIndex: number;
+    results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionInstance {
+    continuous: boolean;
+    interimResults: boolean;
+    lang: string;
+    onstart: (() => void) | null;
+    onend: (() => void) | null;
+    onresult: ((event: SpeechRecognitionEvent) => void) | null;
+    onerror: ((event: { error?: string }) => void) | null;
+    start: () => void;
+    stop: () => void;
+}
+
+interface SpeechRecognitionConstructor {
+    new (): SpeechRecognitionInstance;
+}
+
+declare global {
+    interface Window {
+        SpeechRecognition?: SpeechRecognitionConstructor;
+        webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    }
+}
 
 interface DictationTextareaProps
     extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -20,78 +62,93 @@ export function DictationTextarea({
     ...props
 }: DictationTextareaProps) {
     const [isListening, setIsListening] = useState(false);
-    const [isSupported, setIsSupported] = useState(false);
-    const recognitionRef = useRef<any>(null);
+    const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const isSupported =
+        typeof window !== "undefined" &&
+        ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
 
     useEffect(() => {
-        if (
-            typeof window !== "undefined" &&
-            ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
-        ) {
-            setIsSupported(true);
-            const SpeechRecognition =
-                (window as any).SpeechRecognition ||
-                (window as any).webkitSpeechRecognition;
-            recognitionRef.current = new SpeechRecognition();
-            recognitionRef.current.continuous = true;
-            recognitionRef.current.interimResults = true;
-            recognitionRef.current.lang = "es-ES";
-
-            recognitionRef.current.onstart = () => {
-                setIsListening(true);
-                onDictationStart?.();
-            };
-
-            recognitionRef.current.onend = () => {
-                setIsListening(false);
-                onDictationEnd?.();
-            };
-
-            recognitionRef.current.onresult = (event: any) => {
-                let finalTranscript = "";
-                let interimTranscript = "";
-
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) {
-                        finalTranscript += event.results[i][0].transcript;
-                    } else {
-                        interimTranscript += event.results[i][0].transcript;
-                    }
-                }
-
-                // We only append strictly final results to avoid duplicating text in the textarea
-                // logic for a real implementation might be more complex to handle cursor positions,
-                // but for now, appending to the end or inserting at cursor is a good start.
-                if (finalTranscript && textareaRef.current) {
-                    const spaces = textareaRef.current.value.length > 0 && !textareaRef.current.value.endsWith(' ') ? ' ' : '';
-                    const newText = spaces + finalTranscript.trim();
-
-                    // Native React setter hack to ensure onChange events fire if needed, 
-                    // though direct manipulation is often easier for this specific case
-                    const nativeTextAreaValueSetter = Object.getOwnPropertyDescriptor(
-                        window.HTMLTextAreaElement.prototype,
-                        "value"
-                    )?.set;
-
-                    if (nativeTextAreaValueSetter) {
-                        nativeTextAreaValueSetter.call(textareaRef.current, textareaRef.current.value + newText);
-                        textareaRef.current.dispatchEvent(new Event('input', { bubbles: true }));
-                    }
-
-                    onDictationResult?.(finalTranscript);
-                }
-            };
-
-            recognitionRef.current.onerror = (event: any) => {
-                console.error("Speech recognition error", event.error);
-                setIsListening(false);
-            };
+        if (!isSupported) {
+            return;
         }
-    }, [onDictationStart, onDictationEnd, onDictationResult]);
+
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = "es-ES";
+
+        recognition.onstart = () => {
+            setIsListening(true);
+            onDictationStart?.();
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+            onDictationEnd?.();
+        };
+
+        recognition.onresult = (event) => {
+            let finalTranscript = "";
+
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript;
+                }
+            }
+
+            if (!finalTranscript || !textareaRef.current) {
+                return;
+            }
+
+            const currentValue = textareaRef.current.value;
+            const spacer =
+                currentValue.length > 0 && !currentValue.endsWith(" ") ? " " : "";
+            const appendedText = spacer + finalTranscript.trim();
+            const nativeTextAreaValueSetter = Object.getOwnPropertyDescriptor(
+                window.HTMLTextAreaElement.prototype,
+                "value"
+            )?.set;
+
+            if (nativeTextAreaValueSetter) {
+                nativeTextAreaValueSetter.call(
+                    textareaRef.current,
+                    currentValue + appendedText
+                );
+                textareaRef.current.dispatchEvent(
+                    new Event("input", { bubbles: true })
+                );
+            }
+
+            onDictationResult?.(finalTranscript.trim());
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error", event.error);
+            setIsListening(false);
+        };
+
+        recognitionRef.current = recognition;
+
+        return () => {
+            recognition.onstart = null;
+            recognition.onend = null;
+            recognition.onresult = null;
+            recognition.onerror = null;
+            recognition.stop();
+            recognitionRef.current = null;
+        };
+    }, [isSupported, onDictationEnd, onDictationResult, onDictationStart]);
 
     const toggleDictation = () => {
-        if (!isSupported) return;
+        if (!isSupported || !recognitionRef.current) return;
 
         if (isListening) {
             recognitionRef.current.stop();

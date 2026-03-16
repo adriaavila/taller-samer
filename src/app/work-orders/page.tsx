@@ -3,11 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  AlertTriangle,
-  ArrowUpRight,
-  CheckCircle2,
   Clock,
-  Filter,
   Plus,
   Search,
   Wrench,
@@ -24,19 +20,44 @@ const workOrders: Array<{
   status: string;
   assignedTo: string;
   date: string;
-}> = [];
+}> = [
+  {
+    id: "OT-2025-001",
+    title: "Cambio de aceite y filtros",
+    equipment: "VOLQUETA DONG FENG 3152 BHN",
+    type: "Preventivo",
+    priority: "Medium",
+    status: "Pendiente",
+    assignedTo: "Carlos Soto",
+    date: "2025-02-24",
+  },
+  {
+    id: "OT-2025-002",
+    title: "Diagnóstico sistema hidráulico",
+    equipment: "BOBCAT",
+    type: "Correctivo",
+    priority: "High",
+    status: "En Progreso",
+    assignedTo: "María Rojas",
+    date: "2025-02-23",
+  },
+  {
+    id: "OT-2025-003",
+    title: "Revisión eléctrica general",
+    equipment: "PLANTA ASFALTO SLB8",
+    type: "Predictivo",
+    priority: "Low",
+    status: "Completado",
+    assignedTo: "Daniela Vega",
+    date: "2025-02-21",
+  },
+];
 
 const priorityColor: Record<string, string> = {
   Critical: "text-red-700 bg-red-100 border-red-200",
   High: "text-orange-700 bg-orange-100 border-orange-200",
   Medium: "text-yellow-700 bg-yellow-100 border-yellow-200",
   Low: "text-green-700 bg-green-100 border-green-200",
-};
-
-const statusColor: Record<string, string> = {
-  Pendiente: "text-zinc-600 bg-zinc-100",
-  "En Progreso": "text-blue-700 bg-blue-100 border-blue-200",
-  Completado: "text-green-700 bg-green-100 border-green-200",
 };
 
 export default function WorkOrdersPage() {

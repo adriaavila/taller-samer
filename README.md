@@ -42,11 +42,52 @@ Este proyecto demuestra capacidad para llevar un flujo operativo tradicional a u
 - En entornos operativos, claridad y velocidad pesan más que complejidad visual.
 - Un buen dashboard nace de entender el día a día del negocio.
 
-## Desarrollo local
+## Requisitos
+
+- Node.js 20 o superior
+- npm 10 o superior
+
+## Inicio rápido
+
+Instala dependencias:
 
 ```bash
 npm install
+```
+
+Inicia el entorno de desarrollo:
+
+```bash
 npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000).
+
+## Validación
+
+```bash
+npm run lint
+npm run build
+```
+
+## Notas
+
+- Los scripts usan `webpack` en vez de Turbopack para evitar fallos de compilación en entornos restringidos.
+- `.env.local` incluye variables de Convex y Clerk, pero la interfaz actual funciona con datos locales de ejemplo y no requiere esos servicios para arrancar.
+- El dashboard, los equipos y las ordenes de trabajo incluyen datos iniciales para que la app sea revisable desde el primer arranque.
+
+## Rutas principales
+
+- `/` panel general
+- `/log-hours` registro de jornada
+- `/work-orders` ordenes de trabajo
+- `/equipment` gestion de equipos
+
+## Producción
+
+```bash
+npm run build
+npm run start
 ```
 
 ## Enlace del proyecto

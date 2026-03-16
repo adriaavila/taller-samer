@@ -4,15 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Battery,
-  CheckCircle2,
-  Filter,
-  Fuel,
   Gauge,
   Plus,
   Search,
-  Settings,
-  ShieldAlert,
   Truck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";

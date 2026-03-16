@@ -2,8 +2,17 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 
-// Data will be fetched from API
-const data: any[] = [];
+interface TeamHoursDatum {
+    name: string;
+    hours: number;
+}
+
+const data: TeamHoursDatum[] = [
+    { name: "Mecánica", hours: 42 },
+    { name: "Hidráulica", hours: 28 },
+    { name: "Eléctrica", hours: 19 },
+    { name: "Apoyo", hours: 14 },
+];
 
 export function HoursByTeamChart() {
     return (
@@ -14,7 +23,7 @@ export function HoursByTeamChart() {
             </div>
             <div className="h-[240px] w-full">
                 {data.length > 0 ? (
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <BarChart data={data}>
                             <XAxis
                                 dataKey="name"

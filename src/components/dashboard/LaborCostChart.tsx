@@ -2,8 +2,17 @@
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
-// Data will be fetched from API
-const data: any[] = [];
+interface LaborCostDatum {
+    name: string;
+    value: number;
+}
+
+const data: LaborCostDatum[] = [
+    { name: "Mecánicos", value: 3200 },
+    { name: "Especialistas", value: 2100 },
+    { name: "Ayudantes", value: 950 },
+    { name: "Guardias", value: 600 },
+];
 
 const COLORS = ["#18181b", "#52525b", "#a1a1aa", "#e4e4e7"];
 
@@ -24,7 +33,7 @@ export function LaborCostChart() {
             </div>
             <div className="flex h-[240px] items-center justify-center w-full">
                 {data.length > 0 ? (
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <PieChart>
                             <Pie
                                 data={data}
@@ -35,7 +44,7 @@ export function LaborCostChart() {
                                 paddingAngle={5}
                                 dataKey="value"
                             >
-                                {data.map((entry, index) => (
+                                {data.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>

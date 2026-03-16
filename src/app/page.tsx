@@ -7,8 +7,7 @@ import {
   ShieldCheck,
   Wrench,
 } from "lucide-react";
-import { HoursByTeamChart } from "@/components/dashboard/HoursByTeamChart";
-import { LaborCostChart } from "@/components/dashboard/LaborCostChart";
+import { DashboardCharts } from "@/components/dashboard/DashboardCharts";
 
 // Dashboard ready for real data integration
 
@@ -47,8 +46,7 @@ export default function Home() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2">
-          <HoursByTeamChart />
-          <LaborCostChart />
+          <DashboardCharts />
         </section>
 
         <section className="grid gap-4 lg:grid-cols-3">
