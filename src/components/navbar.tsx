@@ -7,7 +7,8 @@ import {
     LayoutDashboard,
     Clock,
     ClipboardList,
-    Settings,
+    Users,
+    Wrench,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,8 @@ const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/log-hours", label: "Registrar", icon: Clock },
     { href: "/work-orders", label: "OTs", icon: ClipboardList },
-    { href: "/equipment", label: "Equipos", icon: Settings },
+    { href: "/workers", label: "Operarios", icon: Users },
+    { href: "/equipment", label: "Equipos", icon: Wrench },
 ];
 
 export function Navbar() {
@@ -57,7 +59,7 @@ export function Navbar() {
 
             {/* Mobile Navigation (Bottom) */}
             <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white/90 pb-safe backdrop-blur-lg sm:hidden">
-                <div className="grid grid-cols-5 items-center">
+                <div className="grid grid-cols-6 items-center">
                     {navItems.map((item) => {
                         const Icon = item.icon;
                         const isActive =

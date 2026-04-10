@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Loader2, Mic } from "lucide-react";
 
 interface SpeechRecognitionAlternative {
@@ -64,9 +64,11 @@ export function DictationTextarea({
     const [isListening, setIsListening] = useState(false);
     const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const isSupported =
-        typeof window !== "undefined" &&
-        ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+    const isSupported = useSyncExternalStore(
+        () => () => undefined,
+        () => "SpeechRecognition" in window || "webkitSpeechRecognition" in window,
+        () => false
+    );
 
     useEffect(() => {
         if (!isSupported) {

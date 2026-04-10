@@ -1,23 +1,12 @@
 "use client";
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-
-interface LaborCostDatum {
-    name: string;
-    value: number;
-}
-
-const data: LaborCostDatum[] = [
-    { name: "Mecánicos", value: 3200 },
-    { name: "Especialistas", value: 2100 },
-    { name: "Ayudantes", value: 950 },
-    { name: "Guardias", value: 600 },
-];
+import { LABOR_COST_DATA } from "@/lib/constants";
 
 const COLORS = ["#221b14", "#7a5530", "#6b7b6d", "#5d7181"];
 
 export function LaborCostChart() {
-    const totalCost = data.reduce((acc, item) => acc + item.value, 0);
+    const totalCost = LABOR_COST_DATA.reduce((acc, item) => acc + item.value, 0);
 
     return (
         <div className="min-w-0 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
@@ -32,11 +21,11 @@ export function LaborCostChart() {
                 </div>
             </div>
             <div className="h-[240px] w-full min-w-0">
-                {data.length > 0 ? (
+                {LABOR_COST_DATA.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <PieChart>
                             <Pie
-                                data={data}
+                                data={LABOR_COST_DATA}
                                 cx="50%"
                                 cy="50%"
                                 innerRadius={60}
@@ -44,7 +33,7 @@ export function LaborCostChart() {
                                 paddingAngle={5}
                                 dataKey="value"
                             >
-                                {data.map((_, index) => (
+                                {LABOR_COST_DATA.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>
@@ -73,9 +62,9 @@ export function LaborCostChart() {
                     </div>
                 )}
             </div>
-            {data.length > 0 && (
+            {LABOR_COST_DATA.length > 0 && (
                 <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                    {data.map((item, index) => (
+                    {LABOR_COST_DATA.map((item, index) => (
                         <div key={item.name} className="flex items-center gap-2">
                             <div className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
                             <span className="font-medium text-zinc-600">{item.name}</span>
