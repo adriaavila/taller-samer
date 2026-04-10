@@ -1,18 +1,7 @@
 "use client";
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
-
-interface TeamHoursDatum {
-    name: string;
-    hours: number;
-}
-
-const data: TeamHoursDatum[] = [
-    { name: "Mecánica", hours: 42 },
-    { name: "Hidráulica", hours: 28 },
-    { name: "Eléctrica", hours: 19 },
-    { name: "Apoyo", hours: 14 },
-];
+import { HOURS_BY_TEAM } from "@/lib/constants";
 
 export function HoursByTeamChart() {
     return (
@@ -22,9 +11,9 @@ export function HoursByTeamChart() {
                 <p className="text-xs text-zinc-500">Total de horas registradas esta semana</p>
             </div>
             <div className="h-[240px] w-full min-w-0">
-                {data.length > 0 ? (
+                {HOURS_BY_TEAM.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                        <BarChart data={data}>
+                        <BarChart data={HOURS_BY_TEAM}>
                             <XAxis
                                 dataKey="name"
                                 stroke="#5a4e40"

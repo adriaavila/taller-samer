@@ -11,7 +11,7 @@ export function Logo({ className }: LogoProps) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={cn("h-10 w-10", className)}
-            aria-label="Taller app"
+            aria-label="Taller Samer"
         >
             {/* Outer Hexagon - Dark Foundation */}
             <path
