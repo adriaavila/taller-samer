@@ -14,13 +14,13 @@ const data: LaborCostDatum[] = [
     { name: "Guardias", value: 600 },
 ];
 
-const COLORS = ["#18181b", "#52525b", "#a1a1aa", "#e4e4e7"];
+const COLORS = ["#221b14", "#7a5530", "#6b7b6d", "#5d7181"];
 
 export function LaborCostChart() {
     const totalCost = data.reduce((acc, item) => acc + item.value, 0);
 
     return (
-        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <div className="min-w-0 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
                 <div>
                     <h3 className="text-lg font-semibold text-zinc-900">Costo de mano de obra</h3>
@@ -31,7 +31,7 @@ export function LaborCostChart() {
                     <p className="text-xs text-zinc-500">Total semana</p>
                 </div>
             </div>
-            <div className="flex h-[240px] items-center justify-center w-full">
+            <div className="h-[240px] w-full min-w-0">
                 {data.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <PieChart>
@@ -52,7 +52,7 @@ export function LaborCostChart() {
                                 content={({ active, payload }) => {
                                     if (active && payload && payload.length) {
                                         return (
-                                            <div className="rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
+                                            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-2 shadow-sm">
                                                 <span className="block text-xs font-semibold text-zinc-900">
                                                     {payload[0].name}
                                                 </span>
@@ -68,7 +68,7 @@ export function LaborCostChart() {
                         </PieChart>
                     </ResponsiveContainer>
                 ) : (
-                    <div className="text-sm text-zinc-400">
+                    <div className="text-sm text-zinc-500">
                         No hay datos de costos disponibles
                     </div>
                 )}

@@ -17,9 +17,9 @@ import { EQUIPMENT_LIST } from "@/lib/constants";
 const equipmentList = EQUIPMENT_LIST;
 
 const statusColor: Record<string, string> = {
-  Operational: "text-green-700 bg-green-100 border-green-200",
-  Maintenance: "text-orange-700 bg-orange-100 border-orange-200",
-  "Out of Service": "text-red-700 bg-red-100 border-red-200",
+  Operational: "border-emerald-200 bg-emerald-100 text-emerald-800",
+  Maintenance: "border-orange-200 bg-orange-100 text-orange-800",
+  "Out of Service": "border-red-200 bg-red-100 text-red-800",
 };
 
 export default function EquipmentPage() {

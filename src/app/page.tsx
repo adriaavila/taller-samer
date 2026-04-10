@@ -21,7 +21,7 @@ export default function Home() {
               Panel general
             </span>
             <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
-              Bienvenido, equipo Taller Samer
+              Bienvenido, equipo Taller app
             </h1>
             <p className="max-w-3xl text-base text-zinc-500 sm:text-lg">
               Centraliza los registros de jornada, estado de órdenes de trabajo y pendientes críticos para iniciar el día con claridad.

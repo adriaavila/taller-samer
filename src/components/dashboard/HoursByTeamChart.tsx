@@ -16,35 +16,35 @@ const data: TeamHoursDatum[] = [
 
 export function HoursByTeamChart() {
     return (
-        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <div className="min-w-0 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="mb-4">
                 <h3 className="text-lg font-semibold text-zinc-900">Horas trabajadas por equipo</h3>
                 <p className="text-xs text-zinc-500">Total de horas registradas esta semana</p>
             </div>
-            <div className="h-[240px] w-full">
+            <div className="h-[240px] w-full min-w-0">
                 {data.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <BarChart data={data}>
                             <XAxis
                                 dataKey="name"
-                                stroke="#888888"
+                                stroke="#5a4e40"
                                 fontSize={12}
                                 tickLine={false}
                                 axisLine={false}
                             />
                             <YAxis
-                                stroke="#888888"
+                                stroke="#5a4e40"
                                 fontSize={12}
                                 tickLine={false}
                                 axisLine={false}
                                 tickFormatter={(value) => `${value}h`}
                             />
                             <Tooltip
-                                cursor={{ fill: '#f4f4f5' }}
+                                cursor={{ fill: "#f2ece2" }}
                                 content={({ active, payload }) => {
                                     if (active && payload && payload.length) {
                                         return (
-                                            <div className="rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
+                                            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-2 shadow-sm">
                                                 <span className="text-xs font-semibold text-zinc-900">
                                                     {payload[0].value} horas
                                                 </span>
@@ -56,14 +56,13 @@ export function HoursByTeamChart() {
                             />
                             <Bar
                                 dataKey="hours"
-                                fill="#18181b"
+                                fill="#7a5530"
                                 radius={[4, 4, 0, 0]}
-                                className="fill-zinc-900"
                             />
                         </BarChart>
                     </ResponsiveContainer>
                 ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm text-zinc-400">
+                    <div className="flex h-full w-full items-center justify-center text-sm text-zinc-500">
                         No hay registros de horas esta semana
                     </div>
                 )}

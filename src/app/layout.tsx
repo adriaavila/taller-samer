@@ -4,7 +4,7 @@ import { Header } from "@/components/header";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "Taller Samer - Gestión de Taller",
+  title: "Taller app - Gestión de Taller",
   description: "Sistema integral para la gestión de mantenimiento y reparaciones.",
 };
 
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full scroll-smooth">
-      <body className="min-h-full bg-zinc-50 font-sans text-zinc-900 antialiased">
+      <body className="min-h-full bg-background font-sans text-foreground antialiased">
         <div className="relative flex min-h-screen flex-col">
           <Header />
           <Navbar />

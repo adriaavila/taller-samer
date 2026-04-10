@@ -54,10 +54,10 @@ const workOrders: Array<{
 ];
 
 const priorityColor: Record<string, string> = {
-  Critical: "text-red-700 bg-red-100 border-red-200",
-  High: "text-orange-700 bg-orange-100 border-orange-200",
-  Medium: "text-yellow-700 bg-yellow-100 border-yellow-200",
-  Low: "text-green-700 bg-green-100 border-green-200",
+  Critical: "border-red-200 bg-red-100 text-red-800",
+  High: "border-orange-200 bg-orange-100 text-orange-800",
+  Medium: "border-amber-200 bg-amber-100 text-amber-800",
+  Low: "border-emerald-200 bg-emerald-100 text-emerald-800",
 };
 
 export default function WorkOrdersPage() {
@@ -173,7 +173,7 @@ export default function WorkOrdersPage() {
                     {ot.assignedTo}
                   </span>
                 </div>
-                <span className={cn("text-[10px] font-bold uppercase tracking-wide", ot.status === "En Progreso" ? "text-blue-600" : ot.status === "Completado" ? "text-green-600" : "text-zinc-400")}>
+                <span className={cn("text-[10px] font-bold uppercase tracking-wide", ot.status === "En Progreso" ? "text-blue-700" : ot.status === "Completado" ? "text-emerald-700" : "text-amber-700")}>
                   {ot.status}
                 </span>
               </div>

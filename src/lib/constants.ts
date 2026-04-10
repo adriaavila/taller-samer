@@ -21,8 +21,5 @@ export const EQUIPMENT_LIST = [
 ];
 
 export const WORKERS_LIST = [
-    { id: "P-001", name: "María Rojas", role: "Técnico Hidráulico", status: "Active" },
-    { id: "P-002", name: "Carlos Soto", role: "Mecánico General", status: "Active" },
-    { id: "P-003", name: "Daniela Vega", role: "Electromecánico", status: "Active" },
-    { id: "P-004", name: "Juan Pérez", role: "Ayudante", status: "Active" },
+    { id: "P-001", name: "Jesus Valenzuela", role: "Técnico General", status: "Active" },
 ];
