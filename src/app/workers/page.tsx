@@ -26,12 +26,7 @@ export default function WorkersPage() {
       .includes(normalizedQuery),
   );
 
-  const summary = {
-    total: workers.length,
-    disponibles: workers.filter((worker) => worker.status === "Disponible").length,
-    asignados: workers.filter((worker) => worker.status === "Asignado").length,
-    campo: workers.filter((worker) => worker.status === "En campo").length,
-  };
+
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
@@ -49,36 +44,7 @@ export default function WorkersPage() {
           </p>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Total
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.total}</p>
-            <p className="mt-1 text-sm text-zinc-500">Operarios cargados</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Disponibles
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.disponibles}</p>
-            <p className="mt-1 text-sm text-zinc-500">Listos para nuevas OTs</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Asignados
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.asignados}</p>
-            <p className="mt-1 text-sm text-zinc-500">Con trabajo activo</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              En campo
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.campo}</p>
-            <p className="mt-1 text-sm text-zinc-500">Fuera del taller</p>
-          </div>
-        </section>
+
 
         <section className="flex flex-col justify-between gap-4 rounded-3xl border border-zinc-200 bg-white p-3 shadow-sm sm:flex-row sm:items-center">
           <div className="flex min-w-0 flex-1 items-center gap-4 rounded-2xl px-3 py-2">

@@ -39,17 +39,7 @@ export default function EquipmentPage() {
     return matchesFilter && matchesQuery;
   });
 
-  const summary = {
-    total: equipment.length,
-    operativos: equipment.filter((equipmentItem) => equipmentItem.status === "Operativo")
-      .length,
-    mantenimiento: equipment.filter(
-      (equipmentItem) => equipmentItem.status === "En mantenimiento",
-    ).length,
-    detenidos: equipment.filter(
-      (equipmentItem) => equipmentItem.status === "Fuera de servicio",
-    ).length,
-  };
+
 
   const upcomingService = [...equipment]
     .sort(
@@ -84,38 +74,7 @@ export default function EquipmentPage() {
           </Link>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Total activos
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.total}</p>
-            <p className="mt-1 text-sm text-zinc-500">Flota registrada</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Operativos
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.operativos}</p>
-            <p className="mt-1 text-sm text-zinc-500">Listos para trabajo</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              En mantenimiento
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">
-              {summary.mantenimiento}
-            </p>
-            <p className="mt-1 text-sm text-zinc-500">Con OT activa</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Detenidos
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.detenidos}</p>
-            <p className="mt-1 text-sm text-zinc-500">Fuera de servicio</p>
-          </div>
-        </section>
+
 
         <section className="flex flex-col justify-between gap-4 rounded-3xl border border-zinc-200 bg-white p-3 shadow-sm sm:flex-row sm:items-center">
           <div className="flex min-w-0 flex-1 items-center gap-4 rounded-2xl px-3 py-2">

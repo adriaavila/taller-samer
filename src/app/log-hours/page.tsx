@@ -32,29 +32,7 @@ export default function LogHoursPage() {
           </p>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              OTs activas
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{activeWorkOrders.length}</p>
-            <p className="mt-1 text-sm text-zinc-500">Disponibles para imputación</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Operarios cargados
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{workers.length}</p>
-            <p className="mt-1 text-sm text-zinc-500">Seleccionables en el registro</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Fecha operativa
-            </p>
-            <p className="mt-2 text-xl font-bold text-zinc-900">{formatDate(today)}</p>
-            <p className="mt-1 text-sm text-zinc-500">Corte del turno actual</p>
-          </div>
-        </section>
+
 
         <section className="overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-premium">
           <div className="border-b border-zinc-100 bg-zinc-50/50 px-6 py-4 sm:px-8">

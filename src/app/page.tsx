@@ -12,12 +12,12 @@ import {
   Wrench,
 } from "lucide-react";
 import { DashboardCharts } from "@/components/dashboard/DashboardCharts";
-import { HOURS_BY_TEAM, OPERATION_ALERTS } from "@/lib/constants";
+import { OPERATION_ALERTS } from "@/lib/constants";
 import { formatDate, workerStatusStyles } from "@/lib/taller";
 import { cn } from "@/lib/utils";
 import { useTaller } from "@/components/taller-provider";
 
-const recordedHours = HOURS_BY_TEAM.reduce((total, team) => total + team.hours, 0);
+
 
 export default function Home() {
   const { equipment, workers, workOrders } = useTaller();
@@ -69,35 +69,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3">
-                <div className="rounded-3xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                    Horas registradas
-                  </p>
-                  <p className="mt-2 text-3xl font-bold text-zinc-900">
-                    {recordedHours}h
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-500">Semana en curso</p>
-                </div>
-                <div className="rounded-3xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                    OTs activas
-                  </p>
-                  <p className="mt-2 text-3xl font-bold text-zinc-900">
-                    {openOrders.length}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-500">Incluye bloqueadas</p>
-                </div>
-                <div className="rounded-3xl border border-zinc-200 bg-zinc-50 px-4 py-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                    Equipos operativos
-                  </p>
-                  <p className="mt-2 text-3xl font-bold text-zinc-900">
-                    {operationalEquipment.length}/{equipment.length}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-500">Listos para despacho</p>
-                </div>
-              </div>
+
             </div>
 
             <div className="rounded-[1.75rem] border border-zinc-200 bg-zinc-50 p-6">
@@ -146,7 +118,7 @@ export default function Home() {
           <DashboardCharts />
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr_0.95fr]">
+        <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-[1.05fr_0.95fr_0.95fr]">
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-900 text-white">

@@ -50,12 +50,7 @@ export default function WorkOrdersPage() {
     return matchesFilter && matchesQuery;
   });
 
-  const summary = {
-    abiertas: workOrders.filter((workOrder) => workOrder.status !== "Completada").length,
-    progreso: workOrders.filter((workOrder) => workOrder.status === "En progreso").length,
-    bloqueadas: workOrders.filter((workOrder) => workOrder.status === "Bloqueada").length,
-    criticas: workOrders.filter((workOrder) => workOrder.priority === "Crítica").length,
-  };
+
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
@@ -82,36 +77,7 @@ export default function WorkOrdersPage() {
           </Link>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              OTs abiertas
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.abiertas}</p>
-            <p className="mt-1 text-sm text-zinc-500">Pendientes, activas y bloqueadas</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              En progreso
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.progreso}</p>
-            <p className="mt-1 text-sm text-zinc-500">Con trabajo en curso</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Bloqueadas
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.bloqueadas}</p>
-            <p className="mt-1 text-sm text-zinc-500">Esperan repuestos o decisión</p>
-          </div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-              Críticas
-            </p>
-            <p className="mt-2 text-3xl font-bold text-zinc-900">{summary.criticas}</p>
-            <p className="mt-1 text-sm text-zinc-500">Impactan salida operativa</p>
-          </div>
-        </section>
+
 
         <section className="flex flex-col justify-between gap-4 rounded-3xl border border-zinc-200 bg-white p-3 shadow-sm sm:flex-row sm:items-center">
           <div className="flex min-w-0 flex-1 items-center gap-4 rounded-2xl px-3 py-2">

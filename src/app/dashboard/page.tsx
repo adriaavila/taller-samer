@@ -67,7 +67,7 @@ export default function DashboardPage() {
           </p>
         </header>
 
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="grid grid-cols-2 gap-4">
           {kpis.map((kpi) => (
             <div
               key={kpi.title}
@@ -82,7 +82,7 @@ export default function DashboardPage() {
           ))}
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-zinc-900">Actividad reciente</h2>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr]">
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3">
               <Wrench className="h-5 w-5 text-zinc-400" />
