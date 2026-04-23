@@ -9,55 +9,41 @@ import {
 } from "react";
 import {
   EQUIPMENT_LIST,
-  WORKERS_LIST,
-  WORK_ORDER_LIST,
+  INITIAL_TIME_LOGS,
   type Equipment,
-  type Worker,
-  type WorkOrder,
+  type TimeLog,
 } from "@/lib/constants";
 
 interface TallerState {
   equipment: Equipment[];
-  workers: Worker[];
-  workOrders: WorkOrder[];
-  currentWorkerId: string;
+  timeLogs: TimeLog[];
 }
 
 interface TallerContextValue extends TallerState {
-  currentWorker?: Worker;
-  setCurrentWorkerId: (id: string) => void;
+  addTimeLog: (log: Omit<TimeLog, "id">) => void;
+  deleteTimeLog: (id: string) => void;
+  updateEquipmentStatus: (id: string, status: Equipment["status"]) => void;
+  addEquipment: (equipment: Equipment) => void;
+  updateEquipment: (equipment: Equipment) => void;
   deleteEquipment: (id: string) => void;
-  deleteWorker: (id: string) => void;
-  deleteWorkOrder: (id: string) => void;
 }
 
-const STORAGE_KEY = "taller-samer-state-v1";
+const STORAGE_KEY = "taller-samer-state-v2";
 
 const initialState: TallerState = {
   equipment: EQUIPMENT_LIST,
-  workers: WORKERS_LIST,
-  workOrders: WORK_ORDER_LIST,
-  currentWorkerId: WORKERS_LIST[0]?.id ?? "",
+  timeLogs: INITIAL_TIME_LOGS,
 };
 
 const TallerContext = createContext<TallerContextValue | null>(null);
 
 function normalizeState(value: Partial<TallerState>): TallerState {
-  const workers = Array.isArray(value.workers) && value.workers.length > 0
-    ? value.workers
-    : WORKERS_LIST;
-  const equipment = Array.isArray(value.equipment) ? value.equipment : EQUIPMENT_LIST;
-  const workOrders = Array.isArray(value.workOrders) ? value.workOrders : WORK_ORDER_LIST;
-  const currentWorkerId =
-    typeof value.currentWorkerId === "string" && workers.some((worker) => worker.id === value.currentWorkerId)
-      ? value.currentWorkerId
-      : workers[0]?.id ?? "";
+  const equipment = Array.isArray(value.equipment) && value.equipment.length > 0 ? value.equipment : EQUIPMENT_LIST;
+  const timeLogs = Array.isArray(value.timeLogs) ? value.timeLogs : INITIAL_TIME_LOGS;
 
   return {
-    workers,
     equipment,
-    workOrders,
-    currentWorkerId,
+    timeLogs,
   };
 }
 
@@ -86,56 +72,75 @@ export function TallerProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  const setCurrentWorkerId = (id: string) => {
+  const addTimeLog = (log: Omit<TimeLog, "id">) => {
+    setState((currentState) => {
+      const newLog = {
+        ...log,
+        id: `LOG-${Date.now()}`,
+      };
+      
+      // Update equipment hours
+      const newEquipment = currentState.equipment.map(eq => 
+        eq.id === log.equipmentId 
+          ? { ...eq, hours: eq.hours + log.hours }
+          : eq
+      );
+
+      return {
+        ...currentState,
+        equipment: newEquipment,
+        timeLogs: [newLog, ...currentState.timeLogs],
+      };
+    });
+  };
+
+  const deleteTimeLog = (id: string) => {
     setState((currentState) => ({
       ...currentState,
-      currentWorkerId: currentState.workers.some((worker) => worker.id === id)
-        ? id
-        : currentState.currentWorkerId,
+      timeLogs: currentState.timeLogs.filter((log) => log.id !== id),
+    }));
+  };
+
+  const updateEquipmentStatus = (id: string, status: Equipment["status"]) => {
+    setState((currentState) => ({
+      ...currentState,
+      equipment: currentState.equipment.map((eq) =>
+        eq.id === id ? { ...eq, status } : eq
+      ),
+    }));
+  };
+
+  const addEquipment = (newEq: Equipment) => {
+    setState((currentState) => ({
+      ...currentState,
+      equipment: [...currentState.equipment, newEq],
+    }));
+  };
+
+  const updateEquipment = (updatedEq: Equipment) => {
+    setState((currentState) => ({
+      ...currentState,
+      equipment: currentState.equipment.map((eq) =>
+        eq.id === updatedEq.id ? updatedEq : eq
+      ),
     }));
   };
 
   const deleteEquipment = (id: string) => {
     setState((currentState) => ({
       ...currentState,
-      equipment: currentState.equipment.filter((equipment) => equipment.id !== id),
-      workOrders: currentState.workOrders.filter((workOrder) => workOrder.equipmentId !== id),
-    }));
-  };
-
-  const deleteWorker = (id: string) => {
-    setState((currentState) => {
-      const workers = currentState.workers.filter((worker) => worker.id !== id);
-      const nextCurrentWorkerId =
-        currentState.currentWorkerId === id ? workers[0]?.id ?? "" : currentState.currentWorkerId;
-
-      return {
-        ...currentState,
-        workers,
-        currentWorkerId: nextCurrentWorkerId,
-        workOrders: currentState.workOrders.map((workOrder) =>
-          workOrder.assignedTo === id
-            ? { ...workOrder, assignedTo: "" }
-            : workOrder,
-        ),
-      };
-    });
-  };
-
-  const deleteWorkOrder = (id: string) => {
-    setState((currentState) => ({
-      ...currentState,
-      workOrders: currentState.workOrders.filter((workOrder) => workOrder.id !== id),
+      equipment: currentState.equipment.filter((eq) => eq.id !== id),
     }));
   };
 
   const value: TallerContextValue = {
     ...state,
-    currentWorker: state.workers.find((worker) => worker.id === state.currentWorkerId),
-    setCurrentWorkerId,
+    addTimeLog,
+    deleteTimeLog,
+    updateEquipmentStatus,
+    addEquipment,
+    updateEquipment,
     deleteEquipment,
-    deleteWorker,
-    deleteWorkOrder,
   };
 
   return (
