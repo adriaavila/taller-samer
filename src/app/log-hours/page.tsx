@@ -166,7 +166,7 @@ export default function LogHoursPage() {
                 </>
               }
               value={description}
-              onChange={setDescription}
+              onChange={(e) => setDescription(e.target.value)}
               rows={5}
               placeholder="Describe las tareas realizadas, reparaciones o novedades..."
               required
