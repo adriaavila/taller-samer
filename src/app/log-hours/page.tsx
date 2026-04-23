@@ -182,7 +182,8 @@ export default function LogHoursPage() {
                   onClick={() => {
                     setEquipmentId(equipment[0]?.id || "");
                     setDate(today);
-                    setHours(1);
+                    setStartTime("");
+                    setEndTime("");
                     setDescription("");
                   }}
                   className="flex-1 rounded-2xl border border-zinc-200 bg-white px-6 py-4 text-sm font-bold text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 active:scale-95 sm:flex-none"
