@@ -28,7 +28,7 @@ interface TallerContextValue extends TallerState {
   deleteEquipment: (id: string) => void;
 }
 
-const STORAGE_KEY = "taller-samer-state-v2";
+const STORAGE_KEY = "taller-samer-state-v3";
 
 const initialState: TallerState = {
   equipment: EQUIPMENT_LIST,
