@@ -2,6 +2,8 @@
 
 Sistema web para gestión operativa de un taller mecánico, con foco en jornadas, órdenes de trabajo, planificación y control interno.
 
+**En vivo:** https://taller-samer.vercel.app · **Categoría:** Web app · automatización · **Estado:** en producción
+
 ## Qué es este proyecto
 
 Taller Samer plantea una interfaz administrativa para centralizar procesos que normalmente se manejan de forma dispersa dentro de un taller: registro de horas, seguimiento de trabajo, control de recursos y visibilidad operativa.
@@ -93,3 +95,8 @@ npm run start
 ## Enlace del proyecto
 
 - Repositorio: https://github.com/adriaavila/taller-samer
+
+---
+
+**Construido por [creativ3](https://allok.fun)** — software y automatización para negocios.
+[Ver el portafolio](https://allok.fun/projects) · [Pedir cotización](https://allok.fun/cotizar)
